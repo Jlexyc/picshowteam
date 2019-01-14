@@ -9,6 +9,9 @@
 import UIKit
 
 class ImageCell: UICollectionViewCell {
+    @IBOutlet weak var imageView: AsyncImageView!
     
-    
+    override func prepareForReuse() {
+        self.imageView.imageUrl = nil
+    }
 }

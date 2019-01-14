@@ -10,11 +10,11 @@ import Foundation
 
 class ImageModel {
     private let json: Dictionary<String, Any>
-    var title: String {
+    public var title: String {
         return self.json["title"] as? String ?? "N/A"
     }
     var farm: String {
-        return self.json["farm"] as? String ?? ""
+        return (self.json["farm"] as? NSNumber)?.stringValue ?? ""
     }
     var id: String {
         return self.json["id"] as? String ?? ""
@@ -24,6 +24,14 @@ class ImageModel {
     }
     var server: String {
         return self.json["server"] as? String ?? ""
+    }
+    
+    var thumbImageUrl: String {
+        return "https://farm\(self.farm).staticflickr.com/\(self.server)/\(self.id)_\(self.secret)_t.jpg"
+    }
+    
+    var bigImageUrl: String {
+        return "https://farm\(self.farm).staticflickr.com/\(self.server)/\(self.id)_\(self.secret)_h.jpg"
     }
     
     init(_ model: Dictionary<String, Any>) {

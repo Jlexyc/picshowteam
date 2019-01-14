@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hqq-Om-GJZ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -17,32 +17,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2gF-gX-1hn">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="QaJ-G3-waf">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="imageCell" id="tSe-VJ-MGS" customClass="ImageCell">
-                                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="8BZ-cn-Mla" customClass="ImageCell" customModule="picshowteam" customModuleProvider="target">
+                                <rect key="frame" x="87.5" y="0.0" width="200" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BFy-go-HhY">
-                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RkA-hk-P5I" customClass="AsyncImageView" customModule="picshowteam" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                         </imageView>
                                     </subviews>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="BFy-go-HhY" firstAttribute="top" secondItem="tSe-VJ-MGS" secondAttribute="top" id="5Px-IF-bBS"/>
-                                    <constraint firstItem="BFy-go-HhY" firstAttribute="leading" secondItem="tSe-VJ-MGS" secondAttribute="leading" id="RaG-VT-xpX"/>
-                                    <constraint firstAttribute="bottom" secondItem="BFy-go-HhY" secondAttribute="bottom" id="cds-xk-V5s"/>
-                                    <constraint firstAttribute="trailing" secondItem="BFy-go-HhY" secondAttribute="trailing" id="t3i-vC-Dt3"/>
+                                    <constraint firstItem="RkA-hk-P5I" firstAttribute="top" secondItem="8BZ-cn-Mla" secondAttribute="top" id="955-bu-ptK"/>
+                                    <constraint firstAttribute="bottom" secondItem="RkA-hk-P5I" secondAttribute="bottom" id="A8j-be-4G6"/>
+                                    <constraint firstAttribute="trailing" secondItem="RkA-hk-P5I" secondAttribute="trailing" id="QvW-9h-JnX"/>
+                                    <constraint firstItem="RkA-hk-P5I" firstAttribute="leading" secondItem="8BZ-cn-Mla" secondAttribute="leading" id="WPw-zz-hDv"/>
                                 </constraints>
-                                <size key="customSize" width="100" height="100"/>
+                                <size key="customSize" width="200" height="200"/>
+                                <connections>
+                                    <outlet property="imageView" destination="RkA-hk-P5I" id="I7O-T3-upZ"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>

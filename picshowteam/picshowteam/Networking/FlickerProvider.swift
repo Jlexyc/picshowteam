@@ -13,7 +13,7 @@ class FlickerProvider {
     private let secret = "973df75bb7fc67b7"
     private let endpoint = "https://api.flickr.com/services/rest/"
     
-    public func search(_ searchText: String, completionHandler: @escaping (Dictionary<String, Any>?, Error?) -> Void) -> URLSessionDataTask {
+    public func search(_ searchText: String, completionHandler: @escaping (Dictionary<String, Any>?, Error?) -> Void) -> URLSessionDataTask? {
         let methodName = "flickr.photos.search"
         let url = URL(string: "\(self.endpoint)?method=\(methodName)&api_key=\(self.key)&text=\(searchText)&format=json&nojsoncallback=1")!
         var request = URLRequest(url: url)
@@ -28,6 +28,19 @@ class FlickerProvider {
             } catch {
                 completionHandler(nil, error)
             }
+        }
+        task.resume()
+        return task
+    }
+    
+    public func loadImage(_ url: String, completionHandler: @escaping (Data?, Error?) -> Void) -> URLSessionDataTask? {
+        guard let url = URL(string: url) else {
+            completionHandler(nil, nil)
+            return nil
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            completionHandler(data, error)
         }
         task.resume()
         return task

@@ -8,13 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		76F32BED21EC7AA700EF8062 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F32BEC21EC7AA700EF8062 /* AppDelegate.swift */; };
-		76F32BEF21EC7AA700EF8062 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F32BEE21EC7AA700EF8062 /* ViewController.swift */; };
+		76F32BEF21EC7AA700EF8062 /* ImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F32BEE21EC7AA700EF8062 /* ImageCollectionViewController.swift */; };
 		76F32BF221EC7AA700EF8062 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76F32BF021EC7AA700EF8062 /* Main.storyboard */; };
 		76F32BF421EC7AA700EF8062 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76F32BF321EC7AA700EF8062 /* Assets.xcassets */; };
 		76F32BF721EC7AA700EF8062 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76F32BF521EC7AA700EF8062 /* LaunchScreen.storyboard */; };
 		76F32C0221EC7AA800EF8062 /* picshowteamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F32C0121EC7AA800EF8062 /* picshowteamTests.swift */; };
 		76F32C0D21EC7C7E00EF8062 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F32C0C21EC7C7E00EF8062 /* ImageProvider.swift */; };
 		76F32C0F21EC825E00EF8062 /* FlickerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F32C0E21EC825E00EF8062 /* FlickerProvider.swift */; };
+		76F32C1721ECB28A00EF8062 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F32C1621ECB28A00EF8062 /* ImageModel.swift */; };
+		76F32C1921ECCA8500EF8062 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F32C1821ECCA8500EF8062 /* ImageCell.swift */; };
+		76F32C1B21ECD1FD00EF8062 /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F32C1A21ECD1FD00EF8062 /* AsyncImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +33,7 @@
 /* Begin PBXFileReference section */
 		76F32BE921EC7AA700EF8062 /* picshowteam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = picshowteam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76F32BEC21EC7AA700EF8062 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		76F32BEE21EC7AA700EF8062 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		76F32BEE21EC7AA700EF8062 /* ImageCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewController.swift; sourceTree = "<group>"; };
 		76F32BF121EC7AA700EF8062 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		76F32BF321EC7AA700EF8062 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		76F32BF621EC7AA700EF8062 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -40,6 +43,9 @@
 		76F32C0321EC7AA800EF8062 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		76F32C0C21EC7C7E00EF8062 /* ImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
 		76F32C0E21EC825E00EF8062 /* FlickerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickerProvider.swift; sourceTree = "<group>"; };
+		76F32C1621ECB28A00EF8062 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
+		76F32C1821ECCA8500EF8062 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		76F32C1A21ECD1FD00EF8062 /* AsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,11 +87,11 @@
 		76F32BEB21EC7AA700EF8062 /* picshowteam */ = {
 			isa = PBXGroup;
 			children = (
+				76F32C1521ECB25C00EF8062 /* Controllers */,
+				76F32C1421ECB25000EF8062 /* Models */,
+				76F32C1321ECB24600EF8062 /* Networking */,
+				76F32C1021ECB21500EF8062 /* UI */,
 				76F32BEC21EC7AA700EF8062 /* AppDelegate.swift */,
-				76F32BEE21EC7AA700EF8062 /* ViewController.swift */,
-				76F32C0C21EC7C7E00EF8062 /* ImageProvider.swift */,
-				76F32C0E21EC825E00EF8062 /* FlickerProvider.swift */,
-				76F32BF021EC7AA700EF8062 /* Main.storyboard */,
 				76F32BF321EC7AA700EF8062 /* Assets.xcassets */,
 				76F32BF521EC7AA700EF8062 /* LaunchScreen.storyboard */,
 				76F32BF821EC7AA700EF8062 /* Info.plist */,
@@ -100,6 +106,57 @@
 				76F32C0321EC7AA800EF8062 /* Info.plist */,
 			);
 			path = picshowteamTests;
+			sourceTree = "<group>";
+		};
+		76F32C1021ECB21500EF8062 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				76F32BF021EC7AA700EF8062 /* Main.storyboard */,
+				76F32C1221ECB23B00EF8062 /* Views */,
+				76F32C1121ECB23200EF8062 /* ViewControllers */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		76F32C1121ECB23200EF8062 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				76F32BEE21EC7AA700EF8062 /* ImageCollectionViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		76F32C1221ECB23B00EF8062 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				76F32C1821ECCA8500EF8062 /* ImageCell.swift */,
+				76F32C1A21ECD1FD00EF8062 /* AsyncImageView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		76F32C1321ECB24600EF8062 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				76F32C0E21EC825E00EF8062 /* FlickerProvider.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		76F32C1421ECB25000EF8062 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				76F32C1621ECB28A00EF8062 /* ImageModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		76F32C1521ECB25C00EF8062 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				76F32C0C21EC7C7E00EF8062 /* ImageProvider.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,10 +260,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76F32BEF21EC7AA700EF8062 /* ViewController.swift in Sources */,
+				76F32BEF21EC7AA700EF8062 /* ImageCollectionViewController.swift in Sources */,
+				76F32C1721ECB28A00EF8062 /* ImageModel.swift in Sources */,
 				76F32BED21EC7AA700EF8062 /* AppDelegate.swift in Sources */,
 				76F32C0D21EC7C7E00EF8062 /* ImageProvider.swift in Sources */,
 				76F32C0F21EC825E00EF8062 /* FlickerProvider.swift in Sources */,
+				76F32C1921ECCA8500EF8062 /* ImageCell.swift in Sources */,
+				76F32C1B21ECD1FD00EF8062 /* AsyncImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

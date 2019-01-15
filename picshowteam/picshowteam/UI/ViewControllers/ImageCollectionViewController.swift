@@ -11,7 +11,10 @@ import ImageViewer
 
 extension UIImageView: DisplaceableView {}
 
-class ImageCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, GalleryItemsDataSource, GalleryDisplacedViewsDataSource{
+class ImageCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, GalleryItemsDataSource, GalleryDisplacedViewsDataSource, UISearchBarDelegate {
+    
+    weak var searchBar: UISearchBar?
+    var searchTimer: Timer?
     
     var galleryItems = [GalleryItem]()
     var images = [ImageModel]() {
@@ -33,7 +36,15 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        _ = ImageProvider.shared.search("car") { (imageArray, error) in
+    }
+    
+    func searchImages() {
+        guard let searchText = self.searchBar?.text else {
+            self.images = []
+            return
+        }
+        
+        _ = ImageProvider.shared.search(searchText) { (imageArray, error) in
             guard let safeImageArray = imageArray else {
                 print("Response with error")
                 if let safeError = error {
@@ -45,7 +56,7 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
         }
     }
     
-    // MARK: Collection View Delegate & DataSource
+    // MARK: - CollectionViewDelegate & DataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.images.count
     }
@@ -71,9 +82,20 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
         self.present(galleryController, animated: true)
     }
     
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if (kind == UICollectionView.elementKindSectionHeader) {
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "ImageCollectionSearchReusableView", for: indexPath) as! ImageCollectionSearchReusableView
+            headerView.searchBar.delegate = self
+            self.searchBar = headerView.searchBar
+            
+            return headerView
+        }
+        
+        return UICollectionReusableView()
+        
+    }
     
-    // MARK: GalleryItemsDataSource & GalleryDisplacedViewsDataSource
-    
+    // MARK: - GalleryItemsDataSource & GalleryDisplacedViewsDataSource
     func itemCount() -> Int {
         return self.galleryItems.count
     }
@@ -86,12 +108,12 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
         return (collectionView.cellForItem(at: IndexPath(row: index, section: 0)) as? ImageCell)?.imageView
     }
     
-    // MARK: FlowDelegate
-    private let columns: CGFloat = 3
+    // MARK: - FlowDelegate
+    private let columns: CGFloat = 3 // TODO: This value should be extracted to settings screen and control via Theme/Style manager
     
-    private let sectionInsets = UIEdgeInsets(top: 50.0,
+    private let sectionInsets = UIEdgeInsets(top: 20.0, // TODO: Extract this value to general Theme/Style manager
                                              left: 20.0,
-                                             bottom: 50.0,
+                                             bottom: 20.0,
                                              right: 20.0)
     
     func collectionView(_ collectionView: UICollectionView,
@@ -114,5 +136,17 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return sectionInsets.left
+    }
+    
+    //MARK: - UISearchBarDelegate
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if(searchText.isEmpty) {
+            self.images = []
+            return
+        }
+        self.searchTimer?.invalidate()
+        self.searchTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (Timer) in
+            self.searchImages()
+        })
     }
 }

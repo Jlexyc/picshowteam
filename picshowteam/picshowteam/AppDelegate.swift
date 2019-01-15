@@ -6,6 +6,13 @@
 //  Copyright © 2019 Oleksii Kozulin. All rights reserved.
 //
 
+
+// TODO: Add text field for image search
+// TODO: Add pagination with spinner to load
+// TODO: Add proper error handling with internal type error
+// TODO: Add unit tests
+// TODO: Add filter screen
+// TODO: Add Theme/Style manager
 import UIKit
 
 @UIApplicationMain

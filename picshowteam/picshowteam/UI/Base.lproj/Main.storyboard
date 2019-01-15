@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hqq-Om-GJZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3hv-zc-RsQ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,6 +9,22 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="kRh-uM-STz">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="3hv-zc-RsQ" sceneMemberID="viewController">
+                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ff5-4C-SY1">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="hqq-Om-GJZ" kind="relationship" relationship="rootViewController" id="M9U-t3-sz8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="udd-eF-N2F" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-423" y="1"/>
+        </scene>
         <!--Image Collection View Controller-->
         <scene sceneID="L2t-fr-vGS">
             <objects>
@@ -53,6 +69,7 @@
                             <outlet property="delegate" destination="hqq-Om-GJZ" id="0tI-gK-NY7"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" id="nI7-yy-vqz"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7jh-Oa-2Oh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

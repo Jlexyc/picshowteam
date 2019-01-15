@@ -1,0 +1,16 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'picshowteam' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for picshowteam
+  pod 'ImageViewer', :git => 'https://github.com/MailOnline/ImageViewer.git', :commit => 'ffe41dffb2ec0d6506d622b10099dc5e5eaeea43'
+  
+  target 'picshowteamTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end

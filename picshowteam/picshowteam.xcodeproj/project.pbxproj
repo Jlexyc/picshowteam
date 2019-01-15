@@ -20,6 +20,7 @@
 		76F32C1921ECCA8500EF8062 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F32C1821ECCA8500EF8062 /* ImageCell.swift */; };
 		76F32C1B21ECD1FD00EF8062 /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F32C1A21ECD1FD00EF8062 /* AsyncImageView.swift */; };
 		76F32C1D21EDC2D900EF8062 /* ImageCollectionSearchReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F32C1C21EDC2D900EF8062 /* ImageCollectionSearchReusableView.swift */; };
+		76F32C5E21EDE38800EF8062 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F32C5D21EDE38800EF8062 /* LoadingCell.swift */; };
 		D81723CBEBE8D10869815687 /* Pods_picshowteamTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6860BD9839C90979AAC6C684 /* Pods_picshowteamTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		76F32C1821ECCA8500EF8062 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		76F32C1A21ECD1FD00EF8062 /* AsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
 		76F32C1C21EDC2D900EF8062 /* ImageCollectionSearchReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionSearchReusableView.swift; sourceTree = "<group>"; };
+		76F32C5D21EDE38800EF8062 /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
 		CE253DBD3ED56F90D757ACDB /* Pods_picshowteam.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_picshowteam.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E371688DA3B244C53325E197 /* Pods-picshowteamTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-picshowteamTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-picshowteamTests/Pods-picshowteamTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EA061301DC1A10C6EA2C5495 /* Pods-picshowteam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-picshowteam.debug.xcconfig"; path = "Pods/Target Support Files/Pods-picshowteam/Pods-picshowteam.debug.xcconfig"; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 		76F32C1221ECB23B00EF8062 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				76F32C5D21EDE38800EF8062 /* LoadingCell.swift */,
 				76F32C1821ECCA8500EF8062 /* ImageCell.swift */,
 				76F32C1A21ECD1FD00EF8062 /* AsyncImageView.swift */,
 				76F32C1C21EDC2D900EF8062 /* ImageCollectionSearchReusableView.swift */,
@@ -373,6 +376,7 @@
 				76F32C0D21EC7C7E00EF8062 /* ImageProvider.swift in Sources */,
 				76F32C0F21EC825E00EF8062 /* FlickerProvider.swift in Sources */,
 				76F32C1D21EDC2D900EF8062 /* ImageCollectionSearchReusableView.swift in Sources */,
+				76F32C5E21EDE38800EF8062 /* LoadingCell.swift in Sources */,
 				76F32C1921ECCA8500EF8062 /* ImageCell.swift in Sources */,
 				76F32C1B21ECD1FD00EF8062 /* AsyncImageView.swift in Sources */,
 			);

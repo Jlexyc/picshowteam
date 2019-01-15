@@ -10,10 +10,13 @@ import UIKit
 
 class AsyncImageView: UIImageView {
     let activityIndicator = UIActivityIndicatorView(style: .gray)
+    var task: URLSessionDataTask?
+    
     public var imageUrl: String? = nil {
         didSet {
             guard let safeUrl = self.imageUrl else {
                 self.image = nil
+                task?.cancel()
                 return
             }
             self.loadImage(safeUrl)
@@ -23,10 +26,10 @@ class AsyncImageView: UIImageView {
     private func loadImage(_ url: String) {
         self.activityIndicator.startAnimating()
         self.activityIndicator.isHidden = false
-        _ = ImageProvider.shared.getImage(url) { (image, error) in
+        task = ImageProvider.shared.getImage(url) { (image, error) in
             self.activityIndicator.stopAnimating()
             guard let safeImage = image else {
-                print("Image not loaded %@", error ?? "")
+                print("Image not loaded", error ?? "")
                 return
             }
             self.image = safeImage

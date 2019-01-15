@@ -15,7 +15,12 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     
     weak var searchBar: UISearchBar?
     var searchTimer: Timer?
-    
+    var loading: Bool = false
+    var moreResults: Bool = false {
+        didSet {
+            self.collectionView.reloadData()
+        }
+    }
     var galleryItems = [GalleryItem]()
     var images = [ImageModel]() {
         didSet {
@@ -41,24 +46,54 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     func searchImages() {
         guard let searchText = self.searchBar?.text else {
             self.images = []
+            ImageProvider.shared.clearSearch()
             return
         }
         
-        _ = ImageProvider.shared.search(searchText) { (imageArray, error) in
+        if (searchText.isEmpty) {
+            self.images = []
+            ImageProvider.shared.clearSearch()
+            return
+        }
+        
+        self.loading = true
+        _ = ImageProvider.shared.search(searchText) { (imageArray, error, moreResults) in
+            self.loading = false
             guard let safeImageArray = imageArray else {
+                self.moreResults = false
                 print("Response with error")
                 if let safeError = error {
                     print(":", safeError)
                 }
                 return
             }
+            print("MORE RESULTS: ", moreResults)
+            self.moreResults = moreResults
             self.images = safeImageArray
         }
     }
     
+    func loadNextPage() {
+        if !self.loading {
+            print("LOADING NEXT PAGE STARTED")
+            _ = ImageProvider.shared.loadNextPage { (imageArray, error, moreResults) in
+                guard let safeImageArray = imageArray else {
+                    self.moreResults = false
+                    print("Error loading next page")
+                    if let safeError = error {
+                        print(":", safeError)
+                    }
+                    return
+                }
+                self.moreResults = moreResults
+                self.images += safeImageArray
+            }
+        }
+    }
+
     // MARK: - CollectionViewDelegate & DataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.images.count
+        return self.images.count + (self.moreResults ? 1 : 0)
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -66,6 +101,10 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if (indexPath.row >= self.images.count) {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LoadingCell", for: indexPath) as! LoadingCell
+            return cell
+        }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
         let imageData = self.images[indexPath.row]
         cell.imageView.imageUrl = imageData.thumbImageUrl
@@ -95,6 +134,13 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
         
     }
     
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == self.images.count {
+            print("LOADING NEXT PAGE")
+            self.loadNextPage()
+        }
+    }
+    
     // MARK: - GalleryItemsDataSource & GalleryDisplacedViewsDataSource
     func itemCount() -> Int {
         return self.galleryItems.count
@@ -111,7 +157,7 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     // MARK: - FlowDelegate
     private let columns: CGFloat = 3 // TODO: This value should be extracted to settings screen and control via Theme/Style manager
     
-    private let sectionInsets = UIEdgeInsets(top: 20.0, // TODO: Extract this value to general Theme/Style manager
+    private let insets = UIEdgeInsets(top: 20.0, // TODO: Extract this value to general Theme/Style manager
                                              left: 20.0,
                                              bottom: 20.0,
                                              right: 20.0)
@@ -119,31 +165,27 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let paddingSpace = sectionInsets.left * (columns + 1)
-        let availableWidth = view.frame.width - paddingSpace
-        let widthPerItem = availableWidth / columns
+        let offset = insets.left * (columns + 1)
+        let fullWidth = view.frame.width - offset
+        let itemWidth = fullWidth / columns
         
-        return CGSize(width: widthPerItem, height: widthPerItem)
+        return CGSize(width: itemWidth, height: itemWidth)
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        return sectionInsets
+        return insets
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return sectionInsets.left
+        return insets.left
     }
     
     //MARK: - UISearchBarDelegate
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if(searchText.isEmpty) {
-            self.images = []
-            return
-        }
         self.searchTimer?.invalidate()
         self.searchTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (Timer) in
             self.searchImages()

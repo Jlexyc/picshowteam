@@ -15,7 +15,8 @@ class FlickerProvider {
     
     public func search(_ searchText: String, completionHandler: @escaping (Dictionary<String, Any>?, Error?) -> Void) -> URLSessionDataTask? {
         let methodName = "flickr.photos.search"
-        let url = URL(string: "\(self.endpoint)?method=\(methodName)&api_key=\(self.key)&text=\(searchText)&format=json&nojsoncallback=1")!
+        let searchTextEscaped = searchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+        let url = URL(string: "\(self.endpoint)?method=\(methodName)&api_key=\(self.key)&text=\(searchTextEscaped)&format=json&nojsoncallback=1")!
         var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST";

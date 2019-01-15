@@ -63,6 +63,27 @@
                                     <outlet property="imageView" destination="RkA-hk-P5I" id="I7O-T3-upZ"/>
                                 </connections>
                             </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LoadingCell" id="sl3-Rc-7c7" customClass="LoadingCell" customModule="picshowteam" customModuleProvider="target">
+                                <rect key="frame" x="87.5" y="266" width="200" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="J98-A6-KfU">
+                                            <rect key="frame" x="90" y="90" width="20" height="20"/>
+                                        </activityIndicatorView>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="J98-A6-KfU" firstAttribute="centerX" secondItem="sl3-Rc-7c7" secondAttribute="centerX" id="2ou-p1-RKn"/>
+                                    <constraint firstItem="J98-A6-KfU" firstAttribute="centerY" secondItem="sl3-Rc-7c7" secondAttribute="centerY" id="nYq-T9-zxO"/>
+                                </constraints>
+                                <size key="customSize" width="200" height="200"/>
+                                <connections>
+                                    <outlet property="activityIndicator" destination="J98-A6-KfU" id="ttd-2d-WFb"/>
+                                </connections>
+                            </collectionViewCell>
                         </cells>
                         <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCollectionSearchReusableView" id="H5p-xk-Uuf" customClass="ImageCollectionSearchReusableView" customModule="picshowteam" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>

@@ -7,14 +7,16 @@ SWIFT Test Task project.
 * View images + slider (3rd party library)
 * Auto request when typing is finished (timeout 1s)
 * Example unit test to check ImageModel
+* Show/Hide search bar on swipe
 
 ### TODO List:
 * Localisation
 * Add internal error type and make user-friendly error handling
-* Move search bar out from collection view to make it appear/disappear on scroll
-* Add settings screen with filter
+* Add settings screen for appearance (per page, number of columns)
+* Add filter controls (upload dates, license, sorting, geodata...)
 * Cover all logic with unit tests
 * Add dynamic and flexible theme (colors, fonts, insets)
+* Cache results of latest search between app sessions
 
 ### Installation:
 1. checkout project to your folder

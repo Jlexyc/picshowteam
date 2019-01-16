@@ -1,6 +1,9 @@
 # PicShowTeam
 SWIFT Test Task project.
+
 Application performs image search on Flicker by text and shows result as a grid (CollectionView) with SearchBar that showed/hide on swipe (NavigationBar default feature). Architecture is the mix between MVC and React. Views updating on data changes (used default didSet instead of 3rd parties).
+
+Universal App can be run on iPad and iPhone. Supports rotations.
 
 ### Features:
 * Search images by text on Flicker service

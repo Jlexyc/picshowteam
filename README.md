@@ -8,6 +8,7 @@ SWIFT Test Task project.
 * Auto request when typing is finished (timeout 1s)
 * Example unit test to check ImageModel
 * Show/Hide search bar on swipe
+* For class `ImageProvider` added Swift Documentation as example
 
 ### TODO List:
 * Localisation

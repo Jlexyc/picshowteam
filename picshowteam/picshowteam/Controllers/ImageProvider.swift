@@ -10,6 +10,9 @@ import Foundation
 import UIKit
 
 class ImageProvider {
+    /**
+     Shared instance of ImageProvider
+    */
     public static let shared = ImageProvider()
     private let flickerProvider = FlickerProvider()
     private var imageCache = [String: UIImage]()
@@ -18,7 +21,16 @@ class ImageProvider {
     private let perPage: UInt = 50
     private var searchText: String?
     
-    public func search(_ searchText: String, completionHandler: @escaping (Array<ImageModel>?, Error?, Bool) -> Void) -> URLSessionDataTask? {
+    /**
+     Use this method to perform new image search.
+     - Parameter searchText: text that used to search images.
+     - Parameter completionHandler: callback called when results obtained. Called on MAIN thread.
+     - Parameter array: array of images. *nil* means is something wrong. Check *error* in this case.
+     - Parameter error: error that occured during request and parsing. *nil* means request is successful.
+     - Parameter moreResults: bool flag that shows wether next page available or not.
+     - Returns: URLSessionDataTask so you can cancel task if needed or ignore. Could be *nil*.
+     */
+    public func search(_ searchText: String, completionHandler: @escaping (_ array: Array<ImageModel>?, _ error: Error?, _ moreResults: Bool) -> Void) -> URLSessionDataTask? {
         self.searchText = searchText
         return self.search(searchText, page: 0, completionHandler: completionHandler)
     }
@@ -66,7 +78,15 @@ class ImageProvider {
         }
     }
     
-    public func getImage(_ url: String, completionHandler: @escaping (UIImage?, Error?) -> Void) -> URLSessionDataTask? {
+    /**
+     Method downloads image in background
+     - Parameter url: string url of image.
+     - Parameter completionHandler: callback called when results obtained. Called on MAIN thread.
+     - Parameter image: UIImage object. *nil* means is something wrong. Check *error* in this case.
+     - Parameter error: error that occured during request and parsing. *nil* means request is successful.
+     - Returns: URLSessionDataTask so you can cancel task if needed or ignore. Could be *nil*.
+     */
+    public func getImage(_ url: String, completionHandler: @escaping (_ image: UIImage?,_ error: Error?) -> Void) -> URLSessionDataTask? {
         if let image = self.imageCache[url] {
             DispatchQueue.main.async {
                 completionHandler(image, nil)
@@ -89,12 +109,23 @@ class ImageProvider {
         }
     }
     
+    /**
+     Use this method to clear current search.
+     */
     public func clearSearch() {
         self.page = 0
         self.searchText = nil
     }
     
-    public func loadNextPage(completionHandler: @escaping (Array<ImageModel>?, Error?, Bool) -> Void) -> URLSessionDataTask? {
+    /**
+     Use this method to get next page of current search.
+     - Parameter completionHandler: callback called when results obtained. Called on MAIN thread.
+     - Parameter array: array of images. *nil* means is something wrong. Check *error* in this case.
+     - Parameter error: error that occured during request and parsing. *nil* means request is successful.
+     - Parameter moreResults: bool flag that shows wether next page available or not.
+     - Returns: URLSessionDataTask so you can cancel task if needed or ignore. Could be *nil* if there no ongoing search.
+     */
+    public func loadNextPage(completionHandler: @escaping (_ array: Array<ImageModel>?, _ error: Error?, _ moreResults: Bool) -> Void) -> URLSessionDataTask? {
         guard let safeText = self.searchText else {
             print("There no ongoing search")
             return nil

@@ -42,10 +42,11 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     override func viewDidLoad() {
         super.viewDidLoad()
         self.searchBar.sizeToFit()
-        self.searchBar.autoresizingMask = .flexibleWidth
-        self.searchBar.placeholder = "Type text hrere"
+        self.searchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.searchBar.placeholder = "Type text here"
         self.searchBar.delegate = self
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView:self.searchBar)
+        //self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView:self.searchBar)
+        self.navigationItem.titleView = self.searchBar
     }
     
     func searchImages() {
@@ -75,7 +76,6 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
                 }
                 return
             }
-            print("MORE RESULTS: ", moreResults)
             self.moreResults = moreResults
             self.images = safeImageArray
         }
@@ -83,7 +83,6 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     
     func loadNextPage() {
         if !self.loading {
-            print("LOADING NEXT PAGE STARTED")
             _ = ImageProvider.shared.loadNextPage { (imageArray, error, moreResults) in
                 guard let safeImageArray = imageArray else {
                     self.moreResults = false
@@ -99,6 +98,11 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
         }
     }
 
+    public override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        self.collectionView.collectionViewLayout.invalidateLayout()
+        self.navigationController?.navigationBar.sizeToFit()
+    }
+    
     // MARK: - CollectionViewDelegate & DataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.images.count + (self.moreResults ? 1 : 0)
@@ -131,7 +135,6 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == self.images.count {
-            print("LOADING NEXT PAGE")
             self.loadNextPage()
         }
     }
@@ -150,8 +153,6 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     }
     
     // MARK: - FlowDelegate
-    private let columns: CGFloat = 3 // TODO: This value should be extracted to settings screen and control via Theme/Style manager
-    
     private let insets = UIEdgeInsets(top: 20.0, // TODO: Extract this value to general Theme/Style manager
                                              left: 20.0,
                                              bottom: 20.0,
@@ -160,8 +161,10 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let columns = (self.view.frame.width / 120)
+
         let offset = insets.left * (columns + 1)
-        let fullWidth = view.frame.width - offset
+        let fullWidth = self.view.frame.width - offset
         let itemWidth = fullWidth / columns
         
         return CGSize(width: itemWidth, height: itemWidth)

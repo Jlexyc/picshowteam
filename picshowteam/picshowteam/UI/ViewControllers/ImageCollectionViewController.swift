@@ -13,7 +13,7 @@ extension UIImageView: DisplaceableView {}
 
 class ImageCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, GalleryItemsDataSource, GalleryDisplacedViewsDataSource, UISearchBarDelegate {
     
-    weak var searchBar: UISearchBar?
+    lazy var searchBar: UISearchBar = UISearchBar()
     var searchTimer: Timer?
     var loading: Bool = false
     var moreResults: Bool = false {
@@ -41,22 +41,30 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.searchBar.sizeToFit()
+        self.searchBar.autoresizingMask = .flexibleWidth
+        self.searchBar.placeholder = "Type text hrere"
+        self.searchBar.delegate = self
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView:self.searchBar)
     }
     
     func searchImages() {
-        guard let searchText = self.searchBar?.text else {
+        guard let searchText = self.searchBar.text else {
             self.images = []
+            self.moreResults = false
             ImageProvider.shared.clearSearch()
             return
         }
         
         if (searchText.isEmpty) {
             self.images = []
+            self.moreResults = false
             ImageProvider.shared.clearSearch()
             return
         }
         
         self.loading = true
+        self.moreResults = true
         _ = ImageProvider.shared.search(searchText) { (imageArray, error, moreResults) in
             self.loading = false
             guard let safeImageArray = imageArray else {
@@ -121,19 +129,6 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
         self.present(galleryController, animated: true)
     }
     
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if (kind == UICollectionView.elementKindSectionHeader) {
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "ImageCollectionSearchReusableView", for: indexPath) as! ImageCollectionSearchReusableView
-            headerView.searchBar.delegate = self
-            self.searchBar = headerView.searchBar
-            
-            return headerView
-        }
-        
-        return UICollectionReusableView()
-        
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == self.images.count {
             print("LOADING NEXT PAGE")
@@ -186,6 +181,10 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     
     //MARK: - UISearchBarDelegate
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            self.searchImages()
+        }
+        
         self.searchTimer?.invalidate()
         self.searchTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (Timer) in
             self.searchImages()

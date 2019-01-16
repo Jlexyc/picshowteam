@@ -12,9 +12,9 @@
         <!--Navigation Controller-->
         <scene sceneID="kRh-uM-STz">
             <objects>
-                <navigationController navigationBarHidden="YES" id="3hv-zc-RsQ" sceneMemberID="viewController">
-                    <nil key="simulatedTopBarMetrics"/>
+                <navigationController hidesBarsOnSwipe="YES" id="3hv-zc-RsQ" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ff5-4C-SY1">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -35,13 +35,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="QaJ-G3-waf">
                             <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="50" height="56"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="8BZ-cn-Mla" customClass="ImageCell" customModule="picshowteam" customModuleProvider="target">
-                                <rect key="frame" x="87.5" y="56" width="200" height="200"/>
+                                <rect key="frame" x="87.5" y="0.0" width="200" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
@@ -64,7 +64,7 @@
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LoadingCell" id="sl3-Rc-7c7" customClass="LoadingCell" customModule="picshowteam" customModuleProvider="target">
-                                <rect key="frame" x="87.5" y="266" width="200" height="200"/>
+                                <rect key="frame" x="87.5" y="210" width="200" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
@@ -85,28 +85,6 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
-                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCollectionSearchReusableView" id="H5p-xk-Uuf" customClass="ImageCollectionSearchReusableView" customModule="picshowteam" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Type here text to search" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5I-I4-om7">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="62"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                </searchBar>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstItem="j5I-I4-om7" firstAttribute="top" secondItem="H5p-xk-Uuf" secondAttribute="top" id="0RN-AK-57L"/>
-                                <constraint firstAttribute="bottom" secondItem="j5I-I4-om7" secondAttribute="bottom" constant="-6" id="GTU-UG-OIb"/>
-                                <constraint firstAttribute="trailing" secondItem="j5I-I4-om7" secondAttribute="trailing" id="TT9-02-3cH"/>
-                                <constraint firstItem="j5I-I4-om7" firstAttribute="leading" secondItem="H5p-xk-Uuf" secondAttribute="leading" id="rAs-bV-chG"/>
-                            </constraints>
-                            <connections>
-                                <outlet property="searchBar" destination="j5I-I4-om7" id="xam-Ol-rdi"/>
-                            </connections>
-                        </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="hqq-Om-GJZ" id="mRD-gC-bt7"/>
                             <outlet property="delegate" destination="hqq-Om-GJZ" id="0tI-gK-NY7"/>

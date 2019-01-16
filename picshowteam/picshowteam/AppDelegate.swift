@@ -6,13 +6,6 @@
 //  Copyright © 2019 Oleksii Kozulin. All rights reserved.
 //
 
-
-// TODO: Add proper error handling with internal type error
-// TODO: Add unit tests
-// TODO: Add filter screen
-// TODO: Add Theme/Style manager
-// TODO: Add "Back Home Button" or make search bar appear on scroll up.
-
 import UIKit
 
 @UIApplicationMain

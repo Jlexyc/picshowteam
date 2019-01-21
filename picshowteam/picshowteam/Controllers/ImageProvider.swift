@@ -14,6 +14,7 @@ class ImageProvider {
      Shared instance of ImageProvider
     */
     public static let shared = ImageProvider()
+    
     private let flickerProvider = FlickerProvider()
     private var imageCache = [String: UIImage]()
     
@@ -30,20 +31,17 @@ class ImageProvider {
      - Parameter moreResults: bool flag that shows wether next page available or not.
      - Returns: URLSessionDataTask so you can cancel task if needed or ignore. Could be *nil*.
      */
-    public func search(_ searchText: String, completionHandler: @escaping (_ array: Array<ImageModel>?, _ error: Error?, _ moreResults: Bool) -> Void) -> URLSessionDataTask? {
+    public func search(_ searchText: String, completionHandler: @escaping (_ array: Array<ImageModel>?, _ error: ErrorModel?, _ moreResults: Bool) -> Void) -> URLSessionDataTask? {
         self.searchText = searchText
         return self.search(searchText, page: 0, completionHandler: completionHandler)
     }
     
-    private func search(_ searchText: String, page: UInt, completionHandler: @escaping (Array<ImageModel>?, Error?, Bool) -> Void) -> URLSessionDataTask? {
+    private func search(_ searchText: String, page: UInt, completionHandler: @escaping (Array<ImageModel>?, ErrorModel?, Bool) -> Void) -> URLSessionDataTask? {
         return flickerProvider.search(searchText) { (response, error) in
             guard let safeResponse = response else {
-                print("Response with error")
-                if let safeError = error {
-                    print(":", safeError)
-                }
+                let appError = ErrorModel(error: error, type: .networking)
                 DispatchQueue.main.async {
-                    completionHandler(nil, error, false)
+                    completionHandler(nil, appError, false)
                 }
                 return
             }
@@ -51,15 +49,17 @@ class ImageProvider {
             var responseArray = [ImageModel]()
             
             guard let mainObject = safeResponse["photos"] as? Dictionary<String, Any> else {
+                let appError = ErrorModel(message: "No {photos} dictionary in response", type: .parsing)
                 DispatchQueue.main.async {
-                    completionHandler(nil, nil, false)
+                    completionHandler(nil, appError, false)
                 }
                 return
             }
             
             guard let photos = mainObject["photo"] as? Array<Dictionary<String, Any>> else {
+                let appError = ErrorModel(message: "No {photo} array in response", type: .parsing)
                 DispatchQueue.main.async {
-                    completionHandler(nil, nil, false)
+                    completionHandler(nil, appError, false)
                 }
                 return
             }
@@ -86,7 +86,7 @@ class ImageProvider {
      - Parameter error: error that occured during request and parsing. *nil* means request is successful.
      - Returns: URLSessionDataTask so you can cancel task if needed or ignore. Could be *nil*.
      */
-    public func getImage(_ url: String, completionHandler: @escaping (_ image: UIImage?,_ error: Error?) -> Void) -> URLSessionDataTask? {
+    public func getImage(_ url: String, completionHandler: @escaping (_ image: UIImage?,_ error: ErrorModel?) -> Void) -> URLSessionDataTask? {
         if let image = self.imageCache[url] {
             DispatchQueue.main.async {
                 completionHandler(image, nil)
@@ -96,8 +96,9 @@ class ImageProvider {
         
         return self.flickerProvider.loadImage(url) { (data, error) in
             guard let safeData = data, let image = UIImage(data: safeData) else {
+                let appError = ErrorModel(message: "Unable to create image from data", type: .parsing)
                 DispatchQueue.main.async {
-                    completionHandler(nil, nil)
+                    completionHandler(nil, appError)
                 }
                 return
             }
@@ -125,12 +126,16 @@ class ImageProvider {
      - Parameter moreResults: bool flag that shows wether next page available or not.
      - Returns: URLSessionDataTask so you can cancel task if needed or ignore. Could be *nil* if there no ongoing search.
      */
-    public func loadNextPage(completionHandler: @escaping (_ array: Array<ImageModel>?, _ error: Error?, _ moreResults: Bool) -> Void) -> URLSessionDataTask? {
+    public func loadNextPage(completionHandler: @escaping (_ array: Array<ImageModel>?, _ error: ErrorModel?, _ moreResults: Bool) -> Void) -> URLSessionDataTask? {
         guard let safeText = self.searchText else {
-            print("There no ongoing search")
+            // There no pages for no searchtext
             return nil
         }
         
+        if safeText.isEmpty {
+            // Need to use "Recent" request to get images without the string
+            return nil
+        }
         self.page += 1
         return self.search(safeText, page: self.page, completionHandler: completionHandler)
     }

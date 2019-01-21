@@ -22,7 +22,14 @@ class FlickerProvider {
         request.httpMethod = "POST";
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let safeData = data else { return }
+            if let safeError = error {
+                completionHandler(nil, safeError)
+                return
+            }
+            guard let safeData = data else {
+                completionHandler(nil, nil)
+                return
+            }
             do {
                 let jsonObject = try JSONSerialization.jsonObject(with: safeData, options: .allowFragments) as? Dictionary<String, Any>
                 completionHandler(jsonObject, nil)

@@ -45,7 +45,6 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
         self.searchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.searchBar.placeholder = "Type text here"
         self.searchBar.delegate = self
-        //self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView:self.searchBar)
         self.navigationItem.titleView = self.searchBar
     }
     
@@ -68,12 +67,13 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
         self.moreResults = true
         _ = ImageProvider.shared.search(searchText) { (imageArray, error, moreResults) in
             self.loading = false
+            if let safeError = error {
+                self.moreResults = false
+                self.showError(error: safeError)
+                return
+            }
             guard let safeImageArray = imageArray else {
                 self.moreResults = false
-                print("Response with error")
-                if let safeError = error {
-                    print(":", safeError)
-                }
                 return
             }
             self.moreResults = moreResults
@@ -84,12 +84,13 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     func loadNextPage() {
         if !self.loading {
             _ = ImageProvider.shared.loadNextPage { (imageArray, error, moreResults) in
+                if let safeError = error {
+                    self.showError(error: safeError)
+                    return
+                }
+                
                 guard let safeImageArray = imageArray else {
                     self.moreResults = false
-                    print("Error loading next page")
-                    if let safeError = error {
-                        print(":", safeError)
-                    }
                     return
                 }
                 self.moreResults = moreResults
@@ -192,5 +193,13 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
         self.searchTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (Timer) in
             self.searchImages()
         })
+    }
+    
+    //MARK: - Error Handlind
+    //This method should be extracted to base class of ViewController in case if OOP or to Helpers in case of Functional approach. But we have the only place to show errors so it's here
+    func showError(error: ErrorModel) {
+        let alert = UIAlertController.init(title: "Ooops!", message: error.errorMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
 }

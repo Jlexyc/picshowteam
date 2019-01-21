@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		61A3DBF865BC73C795488D4F /* Pods_picshowteam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE253DBD3ED56F90D757ACDB /* Pods_picshowteam.framework */; };
+		7609F94F21F5D93C003C26C4 /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7609F94E21F5D93C003C26C4 /* ErrorModel.swift */; };
 		76F32BED21EC7AA700EF8062 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F32BEC21EC7AA700EF8062 /* AppDelegate.swift */; };
 		76F32BEF21EC7AA700EF8062 /* ImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F32BEE21EC7AA700EF8062 /* ImageCollectionViewController.swift */; };
 		76F32BF221EC7AA700EF8062 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76F32BF021EC7AA700EF8062 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 /* Begin PBXFileReference section */
 		64D90BB6B219CEB29C89FBB1 /* Pods-picshowteamTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-picshowteamTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-picshowteamTests/Pods-picshowteamTests.release.xcconfig"; sourceTree = "<group>"; };
 		6860BD9839C90979AAC6C684 /* Pods_picshowteamTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_picshowteamTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7609F94E21F5D93C003C26C4 /* ErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
 		76F32BE921EC7AA700EF8062 /* picshowteam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = picshowteam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76F32BEC21EC7AA700EF8062 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76F32BEE21EC7AA700EF8062 /* ImageCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewController.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				76F32C1621ECB28A00EF8062 /* ImageModel.swift */,
+				7609F94E21F5D93C003C26C4 /* ErrorModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7609F94F21F5D93C003C26C4 /* ErrorModel.swift in Sources */,
 				76F32BEF21EC7AA700EF8062 /* ImageCollectionViewController.swift in Sources */,
 				76F32C1721ECB28A00EF8062 /* ImageModel.swift in Sources */,
 				76F32BED21EC7AA700EF8062 /* AppDelegate.swift in Sources */,

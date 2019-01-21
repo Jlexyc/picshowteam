@@ -15,11 +15,11 @@ Universal App can be run on iPad and iPhone. Supports rotations.
 * Encoding search string to support different symbols and languages
 * Background fetching and parsing. Main Thread is only for UI.
 * For class `ImageProvider` added Swift Documentation
+* Internal error type. So we can run error handler/parser in one place
 
 ### TODO List:
-* Localisation (Currently there only one string)
+* Localisation (Need to exteract all strings to .strings file or custom localisation module)
 * Show image title in fullscreen mode
-* Add internal error type and make user-friendly error handling
 * Add settings screen for appearance (per page, number of columns)
 * Add filter controls (upload dates, license, sorting, geodata...)
 * Cover all logic with unit tests
